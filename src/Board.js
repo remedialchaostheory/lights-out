@@ -42,6 +42,7 @@ class Board extends Component {
       hasWon: false,
       board: this.createBoard()
     };
+    this.flipCellsAround = this.flipCellsAround.bind(this);
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
@@ -61,7 +62,7 @@ class Board extends Component {
   /** handle changing a cell: update board & determine if winner */
 
   flipCellsAround(coord) {
-    let { ncols, nrows } = this.props;
+    let { ncols, nrows, hasWon } = this.props;
     let board = this.state.board;
     let [y, x] = coord.split("-").map(Number);
 
@@ -74,11 +75,33 @@ class Board extends Component {
     }
 
     // TODO: flip this cell and the cells around it
+    const clickedCell = [x, y];
+    const northCell = [x, y - 1];
+    const southCell = [x, y + 1];
+    const eastCell = [x + 1, y];
+    const westCell = [x - 1, y];
+    const flipCellArr = [clickedCell, northCell, southCell, eastCell, westCell];
+    for (let i = 0; i < flipCellArr.length; i++) {
+      const currCell = flipCellArr[i];
+      flipCell(currCell[1], currCell[0]);
+    }
+    console.log("board ->", board);
 
+    function isWon() {
+      for (let y = 0; y < nrows; y++) {
+        for (let x = 0; x < ncols; x++) {
+          if (board[y][x] === true) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+    hasWon = isWon();
     // win when every cell is turned off
     // TODO: determine is the game has been won
 
-    // this.setState({ board, hasWon });
+    this.setState({ board, hasWon });
   }
 
   /** Render game board or winning message. */
@@ -89,7 +112,13 @@ class Board extends Component {
       let row = [];
       for (let x = 0; x < this.props.ncols; x++) {
         let coord = `${y}-${x}`;
-        row.push(<Cell key={coord} isLit={this.state.board[y][x]} />);
+        row.push(
+          <Cell
+            key={coord}
+            isLit={this.state.board[y][x]}
+            flipCellsAroundMe={() => this.flipCellsAround(coord)}
+          />
+        );
       }
       tblBoard.push(<tr key={y}>{row}</tr>);
     }
