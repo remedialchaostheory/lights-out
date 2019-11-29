@@ -2,7 +2,7 @@
 
 Based on an old-school game.
 
-Click the squares to toggle each light. Careful, the adjencent squares also get toggled!
+Click the squares to toggle each light. Careful, the adjacent squares also get toggled!
 
 
 ![](demo.gif)
