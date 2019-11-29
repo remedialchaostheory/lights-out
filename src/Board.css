@@ -32,7 +32,7 @@ table tr:last-child td:last-child {
 .neon-orange {
   font-family: neon;
   color: #fb4264;
-  font-size: 80px;
+  font-size: 60px;
   text-shadow: 0 0 3vw #f40a35;
   animation: neon-orange 1s ease infinite;
   -moz-animation: neon-orange 1s ease infinite;
@@ -42,7 +42,7 @@ table tr:last-child td:last-child {
 .neon-blue {
   font-family: neon;
   color: #426dfb;
-  font-size: 80px;
+  font-size: 100px;
   text-shadow: 0 0 3vw #2356ff;
   animation: neon-blue 2s linear infinite;
   -moz-animation: neon-blue 2s linear infinite;
