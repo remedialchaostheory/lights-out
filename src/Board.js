@@ -87,17 +87,7 @@ class Board extends Component {
     }
     console.log("board ->", board);
 
-    function isWon() {
-      for (let y = 0; y < nrows; y++) {
-        for (let x = 0; x < ncols; x++) {
-          if (board[y][x] === true) {
-            return false;
-          }
-        }
-      }
-      return true;
-    }
-    hasWon = isWon();
+    hasWon = board.every(row => row.every(cell => !cell));
     // win when every cell is turned off
     // TODO: determine is the game has been won
 
