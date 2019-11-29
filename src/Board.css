@@ -24,7 +24,6 @@ table tr:last-child td:last-child {
 }
 
 .Board-title {
-  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -50,9 +49,11 @@ table tr:last-child td:last-child {
   -o-animation: neon-blue 2s linear infinite;
 }
 
-.winner .neon-blue,
 .winner .neon-orange {
-  font-size: 200px;
+  font-size: 130px;
+}
+.winner .neon-blue {
+  font-size: 150px;
 }
 
 @keyframes neon-orange {
