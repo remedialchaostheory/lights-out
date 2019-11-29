@@ -123,9 +123,15 @@ class Board extends Component {
       tblBoard.push(<tr key={y}>{row}</tr>);
     }
     return (
-      <table className="Board">
-        <tbody>{tblBoard}</tbody>
-      </table>
+      <div className="">
+        {this.state.hasWon ? (
+          <h2>You won !</h2>
+        ) : (
+          <table className="Board">
+            <tbody>{tblBoard}</tbody>
+          </table>
+        )}
+      </div>
     );
 
     // if the game is won, just show a winning msg & render nothing else
