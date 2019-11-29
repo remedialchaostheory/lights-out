@@ -51,7 +51,6 @@ class Board extends Component {
       const currCell = flipCellArr[i];
       flipCell(currCell[1], currCell[0]);
     }
-    console.log("board ->", board);
 
     hasWon = board.every(row => row.every(cell => !cell));
 
