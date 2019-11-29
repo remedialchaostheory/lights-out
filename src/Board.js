@@ -31,7 +31,8 @@ import "./Board.css";
 class Board extends Component {
   static defaultProps = {
     nrows: 5,
-    ncols: 5
+    ncols: 5,
+    chanceLightStartsOn: 0.25
   };
   constructor(props) {
     super(props);
@@ -39,43 +40,21 @@ class Board extends Component {
     // TODO: set initial state
     this.state = {
       hasWon: false,
-      board: null
+      board: this.createBoard()
     };
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
 
   createBoard() {
-    let { ncols, nrows } = this.props;
-    ncols = 5; // temp
-    nrows = 5; // temp
     let board = [];
-    // TODO: create array-of-arrays of true/false values
-    function listToMatrix(list, elementsPerSubArray) {
-      // prettier-ignore
-      var matrix = [], i, k;
-      for (i = 0, k = -1; i < list.length; i++) {
-        if (i % elementsPerSubArray === 0) {
-          k++;
-          matrix[k] = [];
-        }
-        matrix[k].push(list[i]);
+    for (let y = 0; y < this.props.nrows; y++) {
+      let row = [];
+      for (let x = 0; x < this.props.ncols; x++) {
+        row.push(Math.random() < this.props.chanceLightStartsOn);
       }
-
-      return matrix;
+      board.push(row);
     }
-    // Populate array with random booleans
-    let cells = [];
-    for (let i = 0; i < ncols*nrows; i++) {
-      const int = Math.floor(Math.random() + 0.5);
-      let randBool;
-      int === 1 ? (randBool = true) : (randBool = false);
-      cells.push(randBool);
-    }
-
-    board = listToMatrix(cells, 5);
-    console.log("board ->", board);
-
     return board;
   }
 
@@ -105,13 +84,19 @@ class Board extends Component {
   /** Render game board or winning message. */
 
   render() {
+    let tblBoard = [];
+    for (let y = 0; y < this.props.nrows; y++) {
+      let row = [];
+      for (let x = 0; x < this.props.ncols; x++) {
+        let coord = `${y}-${x}`;
+        row.push(<Cell key={coord} isLit={this.state.board[y][x]} />);
+      }
+      tblBoard.push(<tr key={y}>{row}</tr>);
+    }
     return (
-      <div>
-        <table>
-          
-        </table>
-        <p>board</p>
-      </div>
+      <table className="Board">
+        <tbody>{tblBoard}</tbody>
+      </table>
     );
 
     // if the game is won, just show a winning msg & render nothing else
